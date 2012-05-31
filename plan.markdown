@@ -1,14 +1,24 @@
-Each entry should have the following format:
+## How to read this
 
-    * <text> | <materials>
+Entry format:
 
-Material could be directly linked at the corresponding place in the \<text\> in case it is useful only there
+    * <text> | <materials to read>
 
-    * text text text [text][useful-only-here] text [text][and-here] text | useful everywhere in this line
+"man \*" in the materials means "run
 
-Do not inline links directly. Place them at the end of the document and link with aliases (see examples below).
+    man <word>
 
-# Operating systems
+for every word from the \<text\> which looks like a system call."
+
+***Read manuals only in english***, not localized. Localized versions have astronomical numbers of errors. You have been warned.
+
+I'm using the following invocation to get the default version:
+
+    LANG=C man <arguments>
+
+***Each*** word in a manual is meaningful. Do not just skip everything that looks hard to parse.
+
+# Operating Systems Course Plan
 
 ## Introduction to UNIX
 
@@ -21,70 +31,78 @@ Do not inline links directly. Place them at the end of the document and link wit
 * Standart tools: chown, chmod, useradd, usermod, sudo, ... | man \*
 * File system hierarchy: /bin /sbin /boot /dev /etc /home /root /lib /var /media /mnt /proc /sys /usr/\* /usr/local/\*. | man hier
 * Noninteractive text editing: ed, sed, awk, diff, patch. | man \*
-* UNIX history | [wiki][unix-history-wiki] [graph][unix-history-graph].
+* UNIX history | [unix-history-wiki][], [unix-history-graph][].
 
-## OS theory and POSIX
+## OS Theory and POSIX
 
-* Operating systems' kernels: micro-, macro-, monolithic, modular. Kernel-to-userspace interfaces: system calls (syscalls), memory, signals.
-* Access control: discretionary, mandatory, role-based.
-* POSIX access control. Real, effective and saved uid/gids, supplementary gids, setuid bit in file modes.
-* Process models: new process from scratch, cloning with inheritance and tuning, exokernel process models.
-* POSIX process model: fork, exec. Parent-child relationship. init process. | man \*
-* Threads in POSIX and Linux. Process groups and sessions.
-* POSIX signals: standard and realtime. Signal delivery and handling.
+* Operating systems' kernels: micro-, macro-, exo-, monolithic, modular. | [micro-kernel-wiki][], [exo-osdev][], [exo-kernel-wiki][], [exo-MIT][], at least abstracts of [exo-MIT-papers][], at least 1.1.1 from [exo-wiseman], at least abstracts of [exo-nemesis-papers][], [monolithic-kernel-wiki][], [TLK-book][]
+* Kernel-to-userspace interfaces: system calls (syscalls), memory, signals. | [unix-notes-ru][], [WEPSKAM][], man 7 signal
+* Access control: discretionary, mandatory, role-based. | [discretionary-AC-wiki][], [mandatory-AC-wiki][], [role-AC-wiki][], [TCSEC-wiki][], [SELinux-wiki][], [SELinux-FAQ][]
+* POSIX access control. Real, effective and saved uid/gids, supplementary gids, setuid bit in file modes. | man 7 credentials
+* Process models: new process from scratch, cloning with inheritance and tuning, exokernel process models. | see the first question of this block, see next two questions, see section 3.2 of [exo-nemesis-OSSFDM][]
+* POSIX process model: fork, exec. Parent-child relationship. init process. | man \*, man 7 signal
+* Threads in POSIX and Linux. Process groups and sessions. | man 7 pthreads, man 2 clone
+* POSIX signals: standard and realtime. Signal delivery and handling. | man 7 signal
 * POSIX file model: inode, directory entry, VFS, namespace, file descriptor.
 * VFS and namespace operations. VFS features in Linux and Plan 9.
 
-## Standart things, formats and daemons
+## Standart Things, Formats and Daemons
 
 * Hard disk partitioning, MBR. System pre-boot from BIOS to GRUB stage 2.
 * Boot from stage 2, kernel startup, initrd, switching root, system init.
 * Standart daemons: System V init, at, cron, udev, sshd, getty, ... | man \*
 * Standart files in /etc: fstab, mtab, sysctl.conf, issue, nologin, ...
 
-## Licensing and related
+## Licensing and Related
 
-* Software licensing: free software and open source. Common licenses.
-* Quines. Thompson compiler hack.
+* Software licensing: free software and open source. Common licenses.  | [unix-notes-ru][]
+* Quines. Thompson compiler hack. | [unix-notes-ru][]
 
 ## ABI
 
-* ABI. Compilation and linking: COFF, PE, ELF; o[bject]-files, exe[cutable]-files, s[ared]o[bject]-files.
-* Building projects under UNIX: config.h, make, autotools, scons, cmake, ...
-* Resources: read(2)ing files and etc, mmap(2)ing memory pages.
-* The geographical map of virtual memory or "where is the": code, data, heap, stack.
-* Doing syscalls with assembler. Kernel syscall dispatch. Context switching.
-* CPU caches, cache associativity, virtual memory and caching, TLB.
-* Compilation and linking: relocable code, GOT, PIC. Dynamic loading: simple relocation w/o GOT, w/ GOT, caching relocations, PIC.
-* Dynamic loading under Windows and Linux. Lazy dynamic loading. Subtle differences between exe- and so- linking under Linux.
-* libdl and LD\_PRELOAD.
-* Debugging programs with gdb. Stepping lazy dynamically loaded programs.
+* ABI. Compilation and linking: COFF, PE, ELF; o[bject]-files, exe[cutable]-files, s[ared]o[bject]-files. | [unix-notes-ru][]
+* Building projects under UNIX: config.h, make, autotools, scons, cmake, ... | man \*
+* Resources: read(2)ing files and etc, mmap(2)ing memory pages. | man \*
+* The geographical map of virtual memory or "where is the": code, data, heap, stack.| [unix-notes-ru][]
+* Doing syscalls with assembler. Kernel syscall dispatch. Context switching.| [unix-notes-ru][]
+* CPU caches, cache associativity, virtual memory and caching, TLB.| [WEPSKAM][], [unix-notes-ru][]
+* Compilation and linking: relocable code, GOT, PIC. Dynamic loading: simple relocation w/o GOT, w/ GOT, caching relocations, PIC. | [unix-notes-ru][]
+* Dynamic loading under Windows and Linux. Lazy dynamic loading. Subtle differences between exe- and so- linking under Linux. | man ld-linux, [unix-notes-ru][], [sorry-state-of-dl][]
+* libdl and LD\_PRELOAD. | man ld-linux, [SSDALLL][]
+* Debugging programs with gdb. Stepping lazy dynamically loaded programs. | [gdb-Beej][], run gdb and read help
 
 ## Programming with POSIX
 
-* POSIX process control and signaling. System calls: fork, exec, kill, signal, sigaction.
-* Syscalls that are ok to call from signal handlers. Syscall interruption and restarting.
-* Access control with syscalls: set(|r|e)uid, set(|r|e)gid, setre(u|g)id, setres(u|g)id. Capabilities.
-* High level access control with PAM.
+### Process Control
+* POSIX process control and signaling. System calls: fork, exec, kill, signal, sigaction. | man \*
+* Syscalls that are ok to call from signal handlers. Syscall interruption and restarting. | man 7 signal
+* Access control with syscalls: set(|r|e)uid, set(|r|e)gid, setre(u|g)id, setres(u|g)id. Capabilities. | man \*, man 7 capabilities
+* High level access control with PAM. | man 7 PAM
 
-* POSIX synchronous IO API: open, read, write, close, pipe, named pipe with mknod.
-* File control. Syncing, locking, leasing, duplicating, ...: fsync, fdatasync, fcntl, flock, dup, dup2.
-* File descriptor flags and options. Kernel structures behind the file descriptor table.
-* O\_NONBLOCK IO and POSIX AIO.
+### Basic IO
+* POSIX synchronous IO API: open, read, write, close, pipe, named pipe with mknod, soketpair. | man \*, man 7 fifo
+* File control. Syncing, locking, leasing, duplicating, ...: fsync, fdatasync, fcntl, flock, dup, dup2. | man 2 \*
+* File descriptor flags and options. Kernel structures behind the file descriptor table. | man 2 fcntl
+* O\_NONBLOCK IO and POSIX AIO. | man 2 fcntl, man 7 aio
 
-* Memory management. Doing malloc(3) with mmap(2). Memory allocators: SLAB, Hoard.
+### Memory
+* Memory management. Doing malloc(3) with sbrk(2) (deprecated) and mmap(2). | man \*
+* Memory allocators: SLAB, Hoard. Common tricks: mmaping aligned memory, per-thread storage.
 
-* IP networking. Kernel route table, IP filter. Network configuration for glibc: /etc/nsswitch.conf /etc/resolv.conf /etc/services.
-* BSD sockets. Ideas behind and resulting implementation idiosyncrasies. Common creation patterns and usage.
-* glibc networking API. Name resolving, service queries, ...
-* IO multiplexing: select, poll. Classical handling, synchronous interface to asynchronous IO with continuations (co-routines). Bandwidth throttling.
-* Linux epoll and inotify, BSD kqueue, Linux NETLINK, TX-ring.
+### Advanced IO
+* IP networking. Kernel route table, IP filter. Network configuration for glibc: /etc/nsswitch.conf /etc/resolv.conf /etc/services. | man \*, man iptables, [NET3-howto][], [TODO][]
+* BSD sockets. Ideas behind and resulting implementation idiosyncrasies. Common creation patterns and usage. | [network-Beej][]
+* glibc networking API. Name resolving, service queries, ... | man gethostbyname and do breadth-first search through "SEE ALSO"
+* IO multiplexing: select, poll. Throttling bandwidth by reading carefully. | man \*
+* Classical handling, synchronous interface to asynchronous IO with continuations (co-routines).
+* Linux epoll and inotify, BSD kqueue, Linux NETLINK, TX-ring. | man epoll, man inotify, man kqueue (on BSD), man 7 netlink
 * Push and pull data processing models. Throughput versus latency.
 
-* Threads and synchronisation: clone(2), pthreads, shared memory, message queues, symaphores, synchronisation with file locks.
-* Debugging programs with ptrace (without details).
+### Threads, Synchronisation and Related
+* Threads and synchronisation: clone(2), pthreads, shared memory, message queues, symaphores, synchronisation with file locks. | man 2 clone, man 2 pthreads, man 2 fcntl, man 2 flock, man 2 mmap, [IPC-Beej][]
+* Debugging programs with ptrace (without details). | man ptrace
 
-## Back to the theory
+## Back to the Theory
 
 * Process scheduling: basic, multi-rate, cooperative, priority FIFO, pre-emptive, priority proportional, deadline.
 * Linux process scheduler, process states. O(1) rescheduling (resched).
@@ -105,12 +123,36 @@ Do not inline links directly. Place them at the end of the document and link wit
 * Distributed filesystems: Google GFS, git.
 * Linux FUSE interface.
 
-## Good to know about
+## Good to Know About
 
 * Audio API: Alsa, OSS, JACK.
 * Marshalling between languages.
 * Dbus, X11.
 * Efficient system startup. Beyond System V init: upstart, systemd.
 
-  [unix-history-wiki]: http://en.wikipedia.org/wiki/Unix#History
-  [unix-history-graph]: http://www.levenez.com/unix/unix_a4.pdf
+  [unix-notes-ru]: http://github.com/oxij/unix-notes-ru/
+  [monolithic-kernel-wiki]: http://en.wikipedia.org/wiki/Monolithic_kernel
+  [discretionary-AC-wiki]: http://en.wikipedia.org/wiki/Discretionary_access_control
+  [mandatory-AC-wiki]: http://en.wikipedia.org/wiki/Mandatory_access_control
+  [role-AC-wiki]: http://en.wikipedia.org/wiki/Role-based_access_control
+  [SELinux-wiki]: http://en.wikipedia.org/wiki/Security-Enhanced_Linux
+  [SELinux-FAQ]: http://www.nsa.gov/research/selinux/faqs.shtml
+  [TCSEC-wiki]: http://en.wikipedia.org/wiki/Trusted_Computer_System_Evaluation_Criteria
+  [micro-kernel-wiki]: http://en.wikipedia.org/wiki/Microkernel
+  [exo-osdev]: http://wiki.osdev.org/Exokernel
+  [exo-kernel-wiki]: http://en.wikipedia.org/wiki/Exokernel
+  [exo-MIT]: http://pdos.csail.mit.edu/exo.html
+  [exo-MIT-papers]: http://pdos.csail.mit.edu/PDOS-papers.html#Exokernels
+  [exo-wiseman]: http://u.cs.biu.ac.il/~wiseman/2os/microkernels/exokernel.pdf
+  [exo-nemesis-papers]: http://www.cl.cam.ac.uk/research/srg/netos/old-projects/nemesis/documentation.html
+  [exo-nemesis-OSSFDM]: http://www.cl.cam.ac.uk/Research/SRG/netos/old-projects/pegasus/papers/usenix.ps.gz
+  [TLK-book]: http://tldp.org/LDP/tlk/tlk.html
+  [unix-history-wiki]: http://en.wikipedia.org/wiki/Unix#History "Unix history"
+  [unix-history-graph]: http://www.levenez.com/unix/unix_a4.pdf  "Unix version history graph"
+  [sorry-state-of-dl]: http://www.macieira.org/blog/2012/01/sorry-state-of-dynamic-libraries-on-linux/
+  [NET3-howto]: http://tldp.org/HOWTO/NET3-4-HOWTO.html
+  [SSDALLL]: http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html
+  [gdb-Beej]: http://beej.us/guide/bggdb/
+  [network-Beej]: http://beej.us/guide/bgnet/
+  [IPC-Beej]: http://beej.us/guide/bgipc/
+  [WEPSKAM]: http://lwn.net/Articles/250967/
