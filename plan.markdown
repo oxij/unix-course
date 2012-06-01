@@ -10,13 +10,13 @@ Entry format:
 
 for every word from the \<text\> which looks like a system call."
 
-***Read manuals only in english***, not localized. Localized versions have astronomical numbers of errors. You have been warned.
+***Do not read localized (i.e. in languages other than English) manuals*** as they usually have astronomical numbers of errors. You have been warned.
 
-I'm using the following invocation to get the default version:
+I use the following invocation to get the default version:
 
     LANG=C man <arguments>
 
-***Each*** word in a manual is meaningful. Do not just skip everything that looks hard to parse.
+***Each and every*** word in a manual is meaningful. Do not just skip everything that looks hard to parse.
 
 # Operating Systems Course Plan
 
@@ -67,7 +67,7 @@ I'm using the following invocation to get the default version:
 * Doing syscalls with assembler. Kernel syscall dispatch. Context switching.| [unix-notes-ru][]
 * CPU caches, cache associativity, virtual memory and caching, TLB.| [WEPSKAM][], [unix-notes-ru][]
 * Compilation and linking: relocable code, GOT, PIC. Dynamic loading: simple relocation w/o GOT, w/ GOT, caching relocations, PIC. | [unix-notes-ru][]
-* Dynamic loading under Windows and Linux. Lazy dynamic loading. Subtle differences between exe- and so- linking under Linux. | man ld-linux, [unix-notes-ru][], [sorry-state-of-dl][]
+* Dynamic loading under Windows and Linux. Lazy dynamic loading. Subtle differences between exe- and so- linking under Linux. | man ld-linux, [unix-notes-ru][], [link-DLILAW1][], [link-DLILAW2][], [link-drepper][], [link-sorry-state][]
 * libdl and LD\_PRELOAD. | man ld-linux, [SSDALLL][]
 * Debugging programs with gdb. Stepping lazy dynamically loaded programs. | [gdb-Beej][], run gdb and read help
 
@@ -104,13 +104,17 @@ I'm using the following invocation to get the default version:
 
 ## Back to the Theory
 
-* Process scheduling: basic, multi-rate, cooperative, priority FIFO, pre-emptive, priority proportional, deadline.
-* Linux process scheduler, process states. O(1) rescheduling (resched).
-* Special schedulers: FIFO, OTHER, BATCH.
-* Realtime scheduling: hi/low interrupts and preemption, process context preemption, kernel process preemption, (magic) scheduler preemption.
-* Artifacts: priority fluctuation with O(1) resched, priority inversion.
-* IO scheduling: noop, single queue, elevator, multiqueue. Linux: anticipatory, deadline, CFQ.
+### Scheduling
+
+* Process scheduling: basic, multi-rate, cooperative, priority FIFO, pre-emptive, priority proportional, deadline. | [sched-wiki][], [sched-rmuhamma][], [sched-felix][], [sched-osdev][], [sched-wmm24][], [sched-oldlinux][], [sched-amit][]
+* Linux process scheduler, process states. O(1) rescheduling (resched). | [sched-oldlinux][], [sched-amit][]
+* Special schedulers: FIFO, OTHER, BATCH. | man 2 sched\_setscheduler
+* Realtime scheduling: hi/low interrupts and preemption, process context preemption, kernel process preemption, (magic) scheduler preemption. | see questions above
+* Artifacts: priority fluctuation with O(1) resched, priority inversion. | see questions above, [sched-pi-wiki][], [sched-sp10][]
+* IO scheduling: noop, single queue, elevator, multiqueue. Linux: anticipatory, deadline, CFQ. | [io-sched-wiki][], [io-sched-devshed][]
 * Artifacts: priority inversion.
+
+### File systems
 
 * File systems (detailed): tmpfs, FAT, ext2.
 * Journaling. Journaling in ext3: journal, ordered, writeback.
@@ -130,6 +134,17 @@ I'm using the following invocation to get the default version:
 * Dbus, X11.
 * Efficient system startup. Beyond System V init: upstart, systemd.
 
+  [sched-sp10]: http://www.cs.uiuc.edu/class/sp10/cs423/lectures/08-sched.pdf
+  [io-sched-wiki]: http://en.wikipedia.org/wiki/I/O_scheduling
+  [io-sched-devshed]: http://www.devshed.com/c/a/BrainDump/Linux-IO-Schedulers/
+  [sched-pi-wiki]: http://en.wikipedia.org/wiki/Priority_inversion
+  [sched-wiki]: http://en.wikipedia.org/wiki/Scheduling_(computing)
+  [sched-wmm24]: https://www.cs.drexel.edu/~wmm24/cs370/resources/Scheduler.pdf
+  [sched-amit]: http://cs.boisestate.edu/~amit/teaching/597/scheduling.pdf
+  [sched-oldlinux]: http://oreilly.com/catalog/linuxkernel/chapter/ch10.html
+  [sched-osdev]: http://wiki.osdev.org/Scheduling_Algorithms
+  [sched-felix]: http://homepages.uel.ac.uk/u0214248/FELIX1.htm
+  [sched-rmuhamma]: http://www.personal.kent.edu/~rmuhamma/OpSystems/Myos/cpuScheduling.htm
   [unix-notes-ru]: http://github.com/oxij/unix-notes-ru/
   [monolithic-kernel-wiki]: http://en.wikipedia.org/wiki/Monolithic_kernel
   [discretionary-AC-wiki]: http://en.wikipedia.org/wiki/Discretionary_access_control
@@ -149,7 +164,10 @@ I'm using the following invocation to get the default version:
   [TLK-book]: http://tldp.org/LDP/tlk/tlk.html
   [unix-history-wiki]: http://en.wikipedia.org/wiki/Unix#History "Unix history"
   [unix-history-graph]: http://www.levenez.com/unix/unix_a4.pdf  "Unix version history graph"
-  [sorry-state-of-dl]: http://www.macieira.org/blog/2012/01/sorry-state-of-dynamic-libraries-on-linux/
+  [link-sorry-state]: http://www.macieira.org/blog/2012/01/sorry-state-of-dynamic-libraries-on-linux/
+  [link-DLILAW1]: http://www.symantec.com/connect/articles/dynamic-linking-linux-and-windows-part-one
+  [link-DLILAW2]: http://www.symantec.com/connect/articles/dynamic-linking-linux-and-windows-part-two
+  [link-drepper]: http://www.akkadia.org/drepper/dsohowto.pdf-
   [NET3-howto]: http://tldp.org/HOWTO/NET3-4-HOWTO.html
   [SSDALLL]: http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html
   [gdb-Beej]: http://beej.us/guide/bggdb/
