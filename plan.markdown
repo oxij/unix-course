@@ -96,7 +96,7 @@ I use the following invocation to get the default version:
 * IO multiplexing: select, poll. Throttling bandwidth by reading carefully. | man \*
 * Classical handling, synchronous interface to asynchronous IO with continuations (co-routines).
 * Linux epoll and inotify, BSD kqueue, Linux NETLINK, TX-ring. | man epoll, man inotify, man kqueue (on BSD), man 7 netlink
-* Push and pull data processing models. Throughput versus latency.
+* Push and pull data processing models. Throughput versus latency.  | [TSSOSIN][], [SOSILNSSAA][] (read the comments!)
 
 ### Threads, Synchronisation and Related
 * Threads and synchronisation: clone(2), pthreads, shared memory, message queues, symaphores, synchronisation with file locks. | man 2 clone, man 2 pthreads, man 2 fcntl, man 2 flock, man 2 mmap, [IPC-Beej][]
@@ -116,7 +116,7 @@ I use the following invocation to get the default version:
 
 ### File systems
 
-* File systems (detailed): tmpfs, FAT, ext2.
+* File systems (detailed): tmpfs, FAT, ext2. | [ext2-doc][]
 * Journaling. Journaling in ext3: journal, ordered, writeback.
 * Data structures used: groups and tables, B-trees, dancing trees. Log-structured file system.
 * Block and extent allocation, multiroot, snapshots, object-level RAID, transactions (and why they are not that easy in POSIX).
@@ -129,7 +129,7 @@ I use the following invocation to get the default version:
 
 ## Good to Know About
 
-* Audio API: Alsa, OSS, JACK.
+* Audio API: Alsa, OSS, JACK. | [TSSOSIN][], [SOSILNSSAA][]
 * Marshalling between languages.
 * Dbus, X11.
 * Efficient system startup. Beyond System V init: upstart, systemd.
@@ -174,3 +174,6 @@ I use the following invocation to get the default version:
   [network-Beej]: http://beej.us/guide/bgnet/
   [IPC-Beej]: http://beej.us/guide/bgipc/
   [WEPSKAM]: http://lwn.net/Articles/250967/
+  [TSSOSIN]: http://insanecoding.blogspot.com/2007/05/sorry-state-of-sound-in-linux.html
+  [SOSILNSSAA]: http://insanecoding.blogspot.com/2009/06/state-of-sound-in-linux-not-so-sorry.html
+  [ext2-doc]: http://www.nongnu.org/ext2-doc/
